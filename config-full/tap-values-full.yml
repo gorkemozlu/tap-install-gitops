@@ -94,7 +94,7 @@ tap_gui:
         origin: #@ "http://{}".format(data.values.tap.domains.tapGui)
       reading:
         allow:
-        - host: #@ "*.{}".format(data.values.tap.domains.knative) # "*.cnr.tap.mytanzu.org"
+        - host: #@ "*.{}".format(data.values.tap.domains.knative)
 
 contour:
   envoy:
