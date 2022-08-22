@@ -91,15 +91,6 @@ tap_gui:
       reading:
         allow:
         - host: #@ "*.{}".format(data.values.tap.domains.knative) # "*.cnr.tap.mytanzu.org"
-    #@ if "github" in data.values.tap.credentials and "clientId" in data.values.tap.credentials.github and "clientSecret" in data.values.tap.credentials.github:
-    auth:
-      environment: development
-      providers:
-        github:
-          development:
-            clientId: #@ data.values.tap.credentials.github.clientId
-            clientSecret: #@ data.values.tap.credentials.github.clientSecret
-    #@ end
 
 metadata_store:
   ns_for_export_app_cert: "*"
