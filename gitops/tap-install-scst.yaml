@@ -2,27 +2,18 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: metadata-store
-  annotations:
-    kapp.k14s.io/change-group: tap
-    kapp.k14s.io/change-rule: "delete after deleting tap-install/tap"
 ---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: metadata-store-read-client
   namespace: metadata-store
-  annotations:
-    kapp.k14s.io/change-group: tap
-    kapp.k14s.io/change-rule: "delete after deleting tap-install/tap"
 automountServiceAccountToken: false
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: metadata-store-ready-only
-  annotations:
-    kapp.k14s.io/change-group: tap
-    kapp.k14s.io/change-rule: "delete after deleting tap-install/tap"
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
