@@ -46,6 +46,9 @@ learningcenter:
   ingressDomain: #@ data.values.tap.domains.learningCenter
 metadata_store:
   ns_for_export_app_cert: "*"
+grype:
+  namespace: #@ data.values.tap.devNamespace
+  targetImagePullSecret: "tap-registry"
 tap_gui:
   service_type: ClusterIP
   ingressEnabled: "true"
@@ -92,9 +95,6 @@ tap_gui:
       reading:
         allow:
         - host: #@ "*.{}".format(data.values.tap.domains.knative) # "*.cnr.tap.mytanzu.org"
-grype:
-  namespace: #@ data.values.tap.devNamespace
-  targetImagePullSecret: "tap-registry"
 
 contour:
   envoy:
