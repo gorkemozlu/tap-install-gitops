@@ -1,3 +1,10 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: metadata-store
+  annotations:
+    kapp.k14s.io/change-group: tap
+    kapp.k14s.io/change-rule: "delete after deleting tap-install/tap"
 ---
 apiVersion: v1
 kind: ServiceAccount
