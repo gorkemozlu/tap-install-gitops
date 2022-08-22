@@ -44,7 +44,8 @@ ootb_supply_chain_testing_scanning:
 
 learningcenter:
   ingressDomain: #@ data.values.tap.domains.learningCenter
-
+metadata_store:
+  ns_for_export_app_cert: "*"
 tap_gui:
   service_type: ClusterIP
   ingressEnabled: "true"
@@ -90,11 +91,7 @@ tap_gui:
         origin: #@ "http://{}".format(data.values.tap.domains.tapGui)
       reading:
         allow:
-        - host: #@ "*.{}".format(data.values.tap.domains.knative) # "*.cnr.tap.mytanzu.org"
-
-metadata_store:
-  ns_for_export_app_cert: "*"
- 
+        - host: #@ "*.{}".format(data.values.tap.domains.knative) # "*.cnr.tap.mytanzu.org" 
 grype:
   namespace: #@ data.values.tap.devNamespace
   targetImagePullSecret: "tap-registry"
