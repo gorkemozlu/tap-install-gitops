@@ -124,6 +124,9 @@ kind: Pipeline
 metadata:
   name: developer-defined-tekton-pipeline
   namespace: #@ data.values.tap.devNamespace
+  annotations:
+    kapp.k14s.io/change-group: tap
+    kapp.k14s.io/change-rule: "delete after deleting tap-install/tap"
   labels:
     apps.tanzu.vmware.com/pipeline: test
 spec:
@@ -152,6 +155,9 @@ apiVersion: scanning.apps.tanzu.vmware.com/v1beta1
 kind: ScanPolicy
 metadata:
   name: scan-policy
+  annotations:
+    kapp.k14s.io/change-group: tap
+    kapp.k14s.io/change-rule: "delete after deleting tap-install/tap"
   namespace: #@ data.values.tap.devNamespace
 spec:
   regoFile: |
