@@ -5,6 +5,12 @@
 #@ def config():
 profile: full
 ceip_policy_disclosed: true
+accelerator:
+    ingress:
+        include: true
+    domain: #@ data.values.tap.domains.main
+    server:
+        service_type: ClusterIP
 buildservice:
   kp_default_repository: #@ "{}/{}".format(data.values.tap.registry.host, data.values.tap.registry.repositories.buildService)
   kp_default_repository_username: #@ data.values.tap.credentials.registry.username
@@ -12,10 +18,24 @@ buildservice:
   tanzunet_username: #@ data.values.tap.credentials.tanzuNet.username
   tanzunet_password: #@ data.values.tap.credentials.tanzuNet.password
   descriptor_name: "tap-1.1-lite"
-  enable_automatic_dependency_updates: true
+  enable_automatic_dependency_updates: false
 
-supply_chain: basic
+supply_chain: #@ data.values.tap.supply_chain
 ootb_supply_chain_basic:
+  registry:
+    server: #@ data.values.tap.registry.host
+    repository: #@ data.values.tap.registry.repositories.ootbSupplyChain
+  gitops:
+    ssh_secret: ""
+
+ootb_supply_chain_testing:
+  registry:
+    server: #@ data.values.tap.registry.host
+    repository: #@ data.values.tap.registry.repositories.ootbSupplyChain
+  gitops:
+    ssh_secret: ""
+
+ootb_supply_chain_testing_scanning:
   registry:
     server: #@ data.values.tap.registry.host
     repository: #@ data.values.tap.registry.repositories.ootbSupplyChain
@@ -44,10 +64,33 @@ tap_gui:
       - type: url
         target: #@ catalog
       #@ end
+    proxy:
+      /metadata-store:
+        target: #@ data.values.tap.metadata_store.target
+        changeOrigin: true
+        secure: false
+        headers:
+          Authorization: #@ "Bearer {}".format(data.values.tap.metadata_store.target)
+          X-Custom-Source: project-star
+    techdocs:
+      builder: 'external'
+      publisher:
+        type: 'awsS3'
+        awsS3:
+          bucketName: #@ data.values.tap.techdocs.airgapped.bucketName
+          credentials:
+            accessKeyId: #@ data.values.tap.techdocs.airgapped.accessKeyId
+            secretAccessKey: #@ data.values.tap.techdocs.airgapped.secretAccessKey
+          region: minio
+          endpoint: #@ data.values.tap.techdocs.airgapped.endpoint
+          s3ForcePathStyle: true
     backend:
       baseUrl: #@ "http://{}".format(data.values.tap.domains.tapGui)
       cors:
         origin: #@ "http://{}".format(data.values.tap.domains.tapGui)
+      reading:
+        allow:
+        - host: #@ "*.{}".format(data.values.tap.domains.knative) # "*.cnr.tap.mytanzu.org"
       #@ if "backstage" in data.values.tap.credentials and "database" in data.values.tap.credentials.backstage:
       backend:
         database:
@@ -70,7 +113,7 @@ tap_gui:
     #@ end
 
 metadata_store:
-  app_service_type: LoadBalancer
+  ns_for_export_app_cert: "*"
  
 grype:
   namespace: #@ data.values.tap.devNamespace

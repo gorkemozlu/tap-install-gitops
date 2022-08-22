@@ -17,6 +17,20 @@ tap:
     tapGui: tap-gui.apps.tanzu.corp
     learningCenter: learningcenter.apps.tanzu.corp
     knative: apps.tanzu.corp
+
+  #! basic, testing, testing_scanning
+  supply_chain: testing_scanning
+
+  metadata_store:
+    target: https://metadata-store-app.metadata-store:8443/api/v1
+    auth_token: "ey..."
+  
+  techdocs:
+    airgapped:
+      bucketName: bucketname
+      accessKeyId: admin
+      secretAccessKey: pass
+      endpoint: http://minio.example.com
 #@ end
 ---
 apiVersion: v1
