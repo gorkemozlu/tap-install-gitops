@@ -5,7 +5,7 @@ metadata:
   name: metadata-store-read-client
   namespace: metadata-store
   annotations:
-    kapp.k14s.io/change-group: tap-install/rbac
+    kapp.k14s.io/change-group: tap
     kapp.k14s.io/change-rule: "delete after deleting tap-install/tap"
 automountServiceAccountToken: false
 ---
@@ -14,7 +14,7 @@ kind: ClusterRoleBinding
 metadata:
   name: metadata-store-ready-only
   annotations:
-    kapp.k14s.io/change-group: tap-install/rbac
+    kapp.k14s.io/change-group: tap
     kapp.k14s.io/change-rule: "delete after deleting tap-install/tap"
 roleRef:
   apiGroup: rbac.authorization.k8s.io
