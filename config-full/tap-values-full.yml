@@ -18,7 +18,10 @@ buildservice:
   tanzunet_username: #@ data.values.tap.credentials.tanzuNet.username
   tanzunet_password: #@ data.values.tap.credentials.tanzuNet.password
   enable_automatic_dependency_updates: false
-
+#@ if data.values.profile == "view":
+shared:
+  ingress_domain: #@ data.values.tap.domains.main
+#@ end
 supply_chain: #@ data.values.tap.supply_chain
 ootb_supply_chain_basic:
   registry:
@@ -45,9 +48,22 @@ learningcenter:
   ingressDomain: #@ data.values.tap.domains.learningCenter
 metadata_store:
   ns_for_export_app_cert: "*"
+  ingress_domain: #@ data.values.tap.domains.main
+  app_service_type: ClusterIP
+  ingress_enabled: "true"
 grype:
   namespace: #@ data.values.tap.devNamespace
   targetImagePullSecret: "tap-registry"
+  #@ if data.values.profile == "build":
+  metadataStore:
+    url: METADATA-STORE-URL-ON-VIEW-CLUSTER
+    caSecret:
+      name: store-ca-cert
+      importFromNamespace: metadata-store-secrets
+    authSecret:
+      name: store-auth-token
+      importFromNamespace: metadata-store-secrets
+  #@ end
 tap_gui:
   service_type: ClusterIP
   ingressEnabled: "true"
@@ -114,7 +130,29 @@ tap_gui:
             clientId: #@ data.values.tap.credentials.github.clientId
             clientSecret: #@ data.values.tap.credentials.github.clientSecret
     #@ end
-
+    #@ if data.values.profile == "view":
+    kubernetes:
+      serviceLocatorMethod:
+        type: 'multiTenant'
+      clusterLocatorMethods:
+        - type: 'config'
+          clusters:
+            - url: #@ data.values.tap.multiCluster.run.url
+              name: #@ data.values.tap.multiCluster.run.name
+              authProvider: serviceAccount
+              serviceAccountToken: CLUSTER-TOKEN
+              skipTLSVerify: #@ data.values.tap.multiCluster.run.skipTLSVerify
+            - url: #@ data.values.tap.multiCluster.build.url
+              name: #@ data.values.tap.multiCluster.build.name
+              authProvider: serviceAccount
+              serviceAccountToken: CLUSTER-TOKEN
+              skipTLSVerify: #@ data.values.tap.multiCluster.build.skipTLSVerify
+            - url: #@ data.values.tap.multiCluster.iterate.url
+              name: #@ data.values.tap.multiCluster.iterate.name
+              authProvider: serviceAccount
+              serviceAccountToken: CLUSTER-TOKEN
+              skipTLSVerify: #@ data.values.tap.multiCluster.iterate.skipTLSVerify
+    #@ end
 contour:
   envoy:
     service:
