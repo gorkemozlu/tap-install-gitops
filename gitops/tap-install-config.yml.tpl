@@ -35,6 +35,24 @@ tap:
       accessKeyId: admin
       secretAccessKey: pass
       endpoint: http://minio.example.com
+  #! no need to provide value if not using multi cluster setup
+  multiCluster:
+    run:
+      url: CLUSTER-URL
+      name: run-cluster
+      skipTLSVerify: true
+    build:
+      url: CLUSTER-URL
+      name: build-cluster
+      skipTLSVerify: true
+    iterate:
+      url: CLUSTER-URL
+      name: iterate-cluster
+      skipTLSVerify: true
+
+grype:
+  metadataStore:
+    url: metadata-store.apps.mytanzu.org
 #@ end
 ---
 apiVersion: v1
