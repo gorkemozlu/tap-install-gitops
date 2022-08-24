@@ -145,17 +145,17 @@ tap_gui:
             - url: #@ data.values.tap.multiCluster.run.url
               name: #@ data.values.tap.multiCluster.run.name
               authProvider: serviceAccount
-              serviceAccountToken: CLUSTER-TOKEN
+              serviceAccountToken: #@ data.values.tap.multiCluster.run.serviceAccountToken
               skipTLSVerify: #@ data.values.tap.multiCluster.run.skipTLSVerify
             - url: #@ data.values.tap.multiCluster.build.url
               name: #@ data.values.tap.multiCluster.build.name
               authProvider: serviceAccount
-              serviceAccountToken: CLUSTER-TOKEN
+              serviceAccountToken: #@ data.values.tap.multiCluster.build.serviceAccountToken
               skipTLSVerify: #@ data.values.tap.multiCluster.build.skipTLSVerify
             - url: #@ data.values.tap.multiCluster.iterate.url
               name: #@ data.values.tap.multiCluster.iterate.name
               authProvider: serviceAccount
-              serviceAccountToken: CLUSTER-TOKEN
+              serviceAccountToken: #@ data.values.tap.multiCluster.iterate.serviceAccountToken
               skipTLSVerify: #@ data.values.tap.multiCluster.iterate.skipTLSVerify
     #@ end
 contour:
