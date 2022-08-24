@@ -56,7 +56,7 @@ grype:
   targetImagePullSecret: "tap-registry"
   #@ if data.values.profile == "build":
   metadataStore:
-    url: METADATA-STORE-URL-ON-VIEW-CLUSTER
+    url: #@ data.values.grype.metadataStore.url
     caSecret:
       name: store-ca-cert
       importFromNamespace: metadata-store-secrets
@@ -64,6 +64,11 @@ grype:
       name: store-auth-token
       importFromNamespace: metadata-store-secrets
   #@ end
+#@ if data.values.profile == "build":
+scanning:
+  metadataStore:
+    url: ""
+#@ end
 tap_gui:
   service_type: ClusterIP
   ingressEnabled: "true"
