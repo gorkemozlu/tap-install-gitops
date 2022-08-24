@@ -53,6 +53,9 @@ tap:
       serviceAccountToken: "CLUSTER-TOKEN"
       skipTLSVerify: true
 
+appliveveiew:
+  sslDisabled: true
+
 grype:
   metadataStore:
     url: metadata-store.apps.mytanzu.org

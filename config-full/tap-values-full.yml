@@ -162,7 +162,12 @@ contour:
   envoy:
     service:
       type: LoadBalancer
-
+#@ if data.values.profile == "run":
+appliveview_connector:
+  backend:
+    sslDisabled: #@ data.values.appliveveiew.sslDisabled
+    host: #@ "appliveview.{}".format(data.values.tap.domains.main)
+#@ end
 cnrs:
   domain_name: #@ data.values.tap.domains.knative
 #@ end
