@@ -11,7 +11,7 @@ spec:
   fetch:
   - git:
       url: https://github.com/gorkemozlu/tap-install-gitops.git
-      ref: origin/main
+      ref: origin/multi-cluster
       secretRef:
         name: tap-install-gitops-github
   template:

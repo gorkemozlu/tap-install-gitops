@@ -3,7 +3,7 @@
 
 ---
 #@ def config():
-profile: full
+profile: #@ data.values.profile
 ceip_policy_disclosed: true
 accelerator:
     ingress:

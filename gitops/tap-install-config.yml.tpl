@@ -1,6 +1,10 @@
 #@ load("@ytt:yaml", "yaml")
 ---
 #@ def config():
+
+#! full , view , build , iterate, run 
+profile: view
+
 tap:
   #! Set Backstage catalogs to include by default.
   catalogs:
