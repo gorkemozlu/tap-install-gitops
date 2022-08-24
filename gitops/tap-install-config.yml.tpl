@@ -40,14 +40,17 @@ tap:
     run:
       url: CLUSTER-URL
       name: run-cluster
+      serviceAccountToken: "CLUSTER-TOKEN"
       skipTLSVerify: true
     build:
       url: CLUSTER-URL
       name: build-cluster
+      serviceAccountToken: "CLUSTER-TOKEN"
       skipTLSVerify: true
     iterate:
       url: CLUSTER-URL
       name: iterate-cluster
+      serviceAccountToken: "CLUSTER-TOKEN"
       skipTLSVerify: true
 
 grype:
