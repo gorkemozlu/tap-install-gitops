@@ -1,3 +1,14 @@
+#!/bin/bash
+
+kubectx build-cluster
+
+cat <<EOF | kubectl apply -f -
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: tap-gui
+---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -95,15 +106,16 @@ rules:
   - apps
   verbs: ['get', 'watch', 'list']
 ---
-#CLUSTER_URL=$(kubectl config view --minify -o jsonpath='{.clusters[0].cluster.server}')
-#
-#CLUSTER_TOKEN=$(kubectl -n tap-gui get secret $(kubectl -n tap-gui get sa tap-gui-viewer -o=json \
-#| jq -r '.secrets[0].name') -o=json \
-#| jq -r '.data["token"]' \
-#| base64 --decode)
-#
-#echo CLUSTER_URL: $CLUSTER_URL
-#echo CLUSTER_TOKEN: $CLUSTER_TOKEN
-#CLUSTER_CA_CERTIFICATES=$(kubectl config view --raw -o jsonpath='{.clusters[0].cluster.certificate-authority-data}')
-#
-#echo CLUSTER_CA_CERTIFICATES: $CLUSTER_CA_CERTIFICATES
+EOF
+CLUSTER_URL=$(kubectl config view --minify -o jsonpath='{.clusters[0].cluster.server}')
+
+CLUSTER_TOKEN=$(kubectl -n tap-gui get secret $(kubectl -n tap-gui get sa tap-gui-viewer -o=json \
+| jq -r '.secrets[0].name') -o=json \
+| jq -r '.data["token"]' \
+| base64 --decode)
+
+echo CLUSTER_URL: $CLUSTER_URL
+echo CLUSTER_TOKEN: $CLUSTER_TOKEN
+CLUSTER_CA_CERTIFICATES=$(kubectl config view --raw -o jsonpath='{.clusters[0].cluster.certificate-authority-data}')
+
+echo CLUSTER_CA_CERTIFICATES: $CLUSTER_CA_CERTIFICATES
