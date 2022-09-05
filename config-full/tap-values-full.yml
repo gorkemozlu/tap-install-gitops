@@ -122,6 +122,9 @@ contour:
 
 cnrs:
   domain_name: #@ data.values.tap.domains.knative
+
+appsso:
+  domain_name: #@ data.values.tap.domains.main
 #@ end
 ---
 apiVersion: v1
