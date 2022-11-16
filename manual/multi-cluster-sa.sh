@@ -1,7 +1,7 @@
 #!/bin/bash
 
 kubectx build-cluster
-# execute on run cluster as well
+# execute on run and iterate cluster as well
 # kubectx run-cluster
 
 cat <<EOF | kubectl apply -f -

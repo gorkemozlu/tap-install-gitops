@@ -5,7 +5,7 @@ kubectx view-cluster
 CA_CERT=$(kubectl get secret -n metadata-store ingress-cert -o json | jq -r ".data.\"ca.crt\"")
 AUTH_TOKEN=$(kubectl get secrets -n metadata-store -o jsonpath="{.items[?(@.metadata.annotations['kubernetes\.io/service-account\.name']=='metadata-store-read-write-client')].data.token}" | base64 -d)
 
-# execute on run cluster as well
+# execute on run and iterate cluster as well
 # kubectx run-cluster
 kubectx build-cluster
 

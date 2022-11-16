@@ -16,7 +16,7 @@ and [ytt](https://carvel.dev/ytt/) to track Git commits and apply the configurat
 to every cluster. These tools are part of the TAP prerequisites.
 
 ## How to use it?
-### Setup
+### Setup Single Cluster
 1. Make sure [Cluster Essentials for VMware Tanzu is deployed to your cluster](https://docs.vmware.com/en/Cluster-Essentials-for-VMware-Tanzu/1.2/cluster-essentials/GUID-deploy.html).
 
 1. Create new file `tap-install-config.yml` in `gitops`, reusing content from [`tap-install-config.yml.tpl`](gitops/tap-install-config.yml.tpl).
@@ -39,6 +39,19 @@ You are now ready to apply the GitOps configuration:
 kapp deploy -a tap-install-gitops -f <(ytt -f gitops)
 ```
 
+
+### Setup Multi Cluster
+* Update `profile` variable on `tap-install-config.yml` in `gitops` folder with view, build,iterate or run.
+
+* Execute `multi-cluster-sa.sh` in `manual` folder on Build, Run and Iterate clusters.
+    * Get urls and serviceAccountToken from output.
+    * Copy those to `tap-install-config.yml` in `gitops` under multiCluster section.
+
+* Deploy TAP `view` profile on view cluster.
+
+* Execute `multi-cluster-metadata-store.sh` in `manual` folder on Build, Run and Iterate clusters
+
+
 At this point, kapp-controller will monitor the Git repository: any updates
 (commits) will be applied to your cluster, without having to run any commands.
 
@@ -50,6 +63,10 @@ tanzu package installed list -n tap-install
 # OR
 
 kctrl package installed list -n tap-install
+
+# OR
+
+kubectl get apps -n tap-install
 ```
 
 Enjoy!
