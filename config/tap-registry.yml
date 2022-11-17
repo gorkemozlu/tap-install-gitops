@@ -30,3 +30,23 @@ metadata:
 spec:
   toNamespaces:
   - '*'
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: build-service-custom-ca
+  namespace: #@ data.values.tap.namespace
+type: service.binding/ca-certificates
+stringData:
+  type: ca-certificates
+  provider: sample
+  custom_ca.pem: #@ data.values.tap.domains.ca_cert_data
+---
+apiVersion: secretgen.carvel.dev/v1alpha1
+kind: SecretExport
+metadata:
+  name: build-service-custom-ca
+  namespace: #@ data.values.tap.namespace
+spec:
+  toNamespaces:
+  - '*'

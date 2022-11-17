@@ -25,6 +25,13 @@ tap:
       clientSecret: INSERT-GITHUB-CLIENTSECRET
       token: INSERT-GITHUB-TOKEN
 
+    #! Remove suffix "-disabled" to enable Private Git Repo integration:
+    gitrepo-disabled:
+      username: INSERT-GITREPO-USERNAME
+      clientSecret: INSERT-GIT-PASSWORD
+      caFile: |
+        INSERT-GITREPO-CERT-AUTHORITY-AS-PEM
+
     #! Remove suffix "-disabled" to enable Backstage persistence.
     backstage-disabled:
       database:

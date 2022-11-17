@@ -18,31 +18,36 @@ buildservice:
   tanzunet_username: #@ data.values.tap.credentials.tanzuNet.username
   tanzunet_password: #@ data.values.tap.credentials.tanzuNet.password
   enable_automatic_dependency_updates: false
+  exclude_dependencies: true
 #@ if data.values.profile == "view":
 shared:
   ingress_domain: #@ data.values.tap.domains.main
+  ca_cert_data: #@ data.values.tap.domains.ca_cert_data
 #@ end
 supply_chain: #@ data.values.tap.supply_chain
 ootb_supply_chain_basic:
+  git_implementation: libgit2
   registry:
     server: #@ data.values.tap.registry.host
     repository: #@ data.values.tap.registry.repositories.ootbSupplyChain
   gitops:
-    ssh_secret: ""
+    ssh_secret: "git-credentials"
 
 ootb_supply_chain_testing:
+  git_implementation: libgit2
   registry:
     server: #@ data.values.tap.registry.host
     repository: #@ data.values.tap.registry.repositories.ootbSupplyChain
   gitops:
-    ssh_secret: ""
+    ssh_secret: "git-credentials"
 
 ootb_supply_chain_testing_scanning:
+  git_implementation: libgit2
   registry:
     server: #@ data.values.tap.registry.host
     repository: #@ data.values.tap.registry.repositories.ootbSupplyChain
   gitops:
-    ssh_secret: ""
+    ssh_secret: "git-credentials"
 
 learningcenter:
   ingressDomain: #@ data.values.tap.domains.learningCenter

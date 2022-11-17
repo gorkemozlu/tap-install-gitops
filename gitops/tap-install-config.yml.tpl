@@ -6,9 +6,12 @@
 profile: view
 
 tap:
+  tbs:
+    version: "1.7.0"
   #! Set Backstage catalogs to include by default.
   catalogs:
-  - https://github.com/tanzu-corp/tap-catalog/blob/main/catalog-info.yaml
+  - https://github.com/MoSehsah/bank-demo/blob/main/catalog/catalog-info.yaml
+  - https://github.com/gorkemozlu/tap-catalog/blob/main/catalog/catalog-info.yaml
 
   registry:
     host: registry.tanzu.corp
@@ -21,6 +24,10 @@ tap:
     tapGui: tap-gui.apps.tanzu.corp
     learningCenter: learningcenter.apps.tanzu.corp
     knative: apps.tanzu.corp
+    ca_cert_data: |
+      -----BEGIN CERTIFICATE-----
+      cert data here
+      -----END CERTIFICATE-----
 
   #! basic, testing, testing_scanning
   supply_chain: testing_scanning
