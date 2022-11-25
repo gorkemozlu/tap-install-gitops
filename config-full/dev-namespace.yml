@@ -103,7 +103,7 @@ rules:
   resources: ['postgres']
   verbs: ['*']
 - apiGroups: [apps]
-  resources: ['statefulsets','deployment']
+  resources: ['statefulsets','statefulset','deployment','deployments']
   verbs: ['*']
 - apiGroups: [""]
   resources: ['services']
