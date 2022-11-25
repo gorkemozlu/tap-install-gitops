@@ -40,18 +40,6 @@ type: kubernetes.io/dockerconfigjson
 data:
   .dockerconfigjson: e30K
 ---
-#@ if data.values.tap.gitrepo:
-apiVersion: v1
-kind: Secret
-metadata:
-  name: git-credentials
-  namespace: #@ data.values.tap.devNamespace
-stringData:
-  caFile: #@ data.values.tap.gitrepo.caFile
-  password: #@ data.values.tap.gitrepo.password
-  username: #@ data.values.tap.gitrepo.username
-#@ end
----
 apiVersion: v1
 kind: ServiceAccount
 metadata:

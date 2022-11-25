@@ -19,7 +19,6 @@ spec:
       paths:
       - config
       - config-full
-#      - additional/external-dns
       valuesFrom:
       - configMapRef:
           name: tap-install-gitops
@@ -27,21 +26,3 @@ spec:
           name: tap-install-gitops
   deploy:
   - kapp: {}
----
-apiVersion: packaging.carvel.dev/v1alpha1
-kind: PackageInstall
-metadata:
-  name: full-tbs-deps
-  namespace: tap-install-gitops
-  annotations:
-    kapp.k14s.io/change-group: tbs
-    kapp.k14s.io/change-rule: "upsert after upserting tap-install-gitops/app"
-    kapp.k14s.io/change-rule.repo: "upsert after upserting tap-install/tbs-repo"
-    kapp.k14s.io/change-rule.serviceaccount: delete before deleting serviceaccount
-spec:
-  packageRef:
-    refName: full-tbs-deps.tanzu.vmware.com
-    versionSelection:
-      constraints: #@ str(data.values.tap.tbs.version)
-      prereleases: {}
-  serviceAccountName: tap-install-gitops-sa
