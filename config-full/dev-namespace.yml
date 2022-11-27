@@ -111,6 +111,9 @@ rules:
 - apiGroups: [conventions.carto.run]
   resources: ['podintents']
   verbs: ['*']
+- apiGroups: [projectcontour.io]
+  resources: ['httpproxies']
+  verbs: ['*']
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
